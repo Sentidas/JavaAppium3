@@ -1,6 +1,7 @@
 package tests;
 
-import javafx.print.PageLayout;
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.ArticlePageObject;
@@ -9,12 +10,15 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.SearchPageObjectFactory;
 import org.junit.Test;
 import org.junit.Assert;
-import org.junit.Test;
 
-public class ChangeAppConditonTests extends CoreTestCase {
+public class ChangeAppConditionTests extends CoreTestCase {
 
     @Test
-    public void testChangeScreenOrientaionOnSearchResults() {
+    @Features(value = {@Feature(value="Article"), @Feature(value = "device")})
+    @DisplayName("Change the screen orientation")
+    @Step("Starting test testChangeScreenOrientationOnSearchResults")
+    @Severity(value = SeverityLevel.NORMAL)
+    public void testChangeScreenOrientationOnSearchResults() {
         if(Platform.getInstance().isMw()){
             return;
         }

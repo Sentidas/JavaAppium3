@@ -37,7 +37,7 @@ public class Platform {
         }else if(this.isMw()) {
             return new ChromeDriver(this.getMWChromeOptions());
         }else {
-            throw new Exception("Cannot detect type of the Driver. Plantorm value: " + this.getPlatformVar());
+            throw new Exception("Cannot detect type of the Driver. Platform value: " + this.getPlatformVar());
         }
     }
 

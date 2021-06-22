@@ -2,11 +2,9 @@ package lib.ui;
 
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.remote.RemoteWebDriver;
-
-import java.security.SecureRandom;
-
 
 abstract public class MyListPageObject extends MainPageObject {
 
@@ -32,7 +30,7 @@ abstract public class MyListPageObject extends MainPageObject {
         return REMOVE_FROM_SAVED_BUTTON.replace("{TITLE}", articleTitle);
     }
 
-
+    @Step("Opening folder by name")
     public void openFolderByName(String nameOfFolder) {
 
         String nameOfFolderXpath = getFolderXpathByNameTpl(nameOfFolder);
@@ -43,20 +41,20 @@ abstract public class MyListPageObject extends MainPageObject {
                 5
         );
     }
-
+    @Step("Waiting to appear article by title")
     public void waitForArticleToAppearByTitle(String articleTitle){
 
         String articleTitleXpath = getSavedArticleXpathByTitleTpl(articleTitle);
         this.waitForELementPresent(articleTitleXpath, "Cannot find saved article by title " + articleTitle, 15);
     }
-
+    @Step("Waiting to disappear article by title")
     public void waitForArticleToDisappearByTitle(String articleTitle){
 
         String articleTitleXpath = getSavedArticleXpathByTitleTpl(articleTitle);
         this.waitForELementNotPresent(articleTitleXpath, "Saved article still present with title " + articleTitle, 15);
     }
 
-
+    @Step("Swiping to the article for delete")
     public void swipeToArticleToDelete(String articleTitle) {
 
         this.waitForArticleToAppearByTitle(articleTitle);
@@ -87,6 +85,7 @@ abstract public class MyListPageObject extends MainPageObject {
             this.waitForArticleToDisappearByTitle(articleTitle);
         }
     }
+    @Step("Waiting the article to appear and click by title")
     public void waitForArticleToAppearByTitleAndClick(String articleTitle){
 
         String articleTitleXpath = getSavedArticleXpathByTitleTpl(articleTitle);

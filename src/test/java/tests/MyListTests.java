@@ -1,6 +1,8 @@
 package tests;
 
 
+import io.qameta.allure.*;
+import io.qameta.allure.junit4.DisplayName;
 import lib.CoreTestCase;
 import lib.Platform;
 import lib.ui.*;
@@ -8,6 +10,8 @@ import lib.ui.factories.ArticlePageObjectFactory;
 import lib.ui.factories.MyListPageObjectFactory;
 import lib.ui.factories.NavigationUIFactory;
 import lib.ui.factories.SearchPageObjectFactory;
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class MyListTests extends CoreTestCase {
@@ -18,6 +22,11 @@ public class MyListTests extends CoreTestCase {
             password = "123456Sa";
 
     @Test
+    @Features(value = {@Feature(value="MyList"),@Feature(value="Article"), @Feature(value = "Smoke_testing")})
+    @DisplayName("Save two articles in my list and then delete one")
+    @Description("We save wwo articles in my list and then delete one")
+    @Step("Starting test testSaveTwoArticleInMyListAndDeleteOne")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveTwoArticleInMyListAndDeleteOne_ex5_ex11_ex17() {
         String articleTitle = null;
         String articleTitle2 = null;
@@ -44,13 +53,13 @@ public class MyListTests extends CoreTestCase {
         if (Platform.getInstance().isMw()) {
             AutorizationPageObject autorizationPageObject = new AutorizationPageObject(driver);
             autorizationPageObject.clickAuthButton();
-            autorizationPageObject.enterLiginData(login, password);
+            autorizationPageObject.enterLoginData(login, password);
             autorizationPageObject.submitForm();
 
             articlePageObject.waitForTitleElement();
             System.out.println("заголовок статьи 1 " + articleTitle);
 
-            assertEquals("We are not on the same page after login",
+            Assert.assertEquals("We are not on the same page after login",
                     articleTitle,
                     articlePageObject.getArticleTitle()
             );
@@ -73,7 +82,7 @@ public class MyListTests extends CoreTestCase {
 
             articlePageObject.waitForTitleElement();
             System.out.println("заголовок статьи 2" + articleTitle2);
-            assertEquals("We are not on the same page after login",
+            Assert.assertEquals("We are not on the same page after login",
                     articleTitle2,
                     articlePageObject.getArticleTitle()
             );
@@ -102,7 +111,13 @@ public class MyListTests extends CoreTestCase {
         }
     }
 
+    @Ignore
     @Test
+    @Features(value = {@Feature(value="MyList"),@Feature(value="Article"), @Feature(value = "Smoke_testing")})
+    @DisplayName("Save two articles in my list and then delete one for Android")
+    @Description("We save wwo articles in my list and then delete one")
+    @Step("Starting test testSaveTwoArticleInMyListAndDeleteOne (this method is only for Android)")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveTwoArticleInMyListAndDeleteOne_ex5_onlyForAndroid() {
 
 
@@ -137,8 +152,13 @@ public class MyListTests extends CoreTestCase {
         myListPageObject.waitForArticleToAppearByTitle(articleTitle);
 
 }
-
+    @Ignore
     @Test
+    @Features(value = {@Feature(value="MyList"),@Feature(value="Article"), @Feature(value = "Smoke_testing")})
+    @DisplayName("Save two articles in my list and then delete one for iOS")
+    @Description("We save wwo articles in my list and then delete one")
+    @Step("Starting test testSaveTwoArticleInMyListAndDeleteOne (this method is only for iOS)")
+    @Severity(value = SeverityLevel.NORMAL)
     public void testSaveTwoArticleInMyListAndDeleteOne_ex11_onlyForIos() {
         String articleTitle = null;
         String articleTitle2 = null;

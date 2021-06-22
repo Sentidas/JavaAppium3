@@ -2,12 +2,7 @@ package tests;
 
 import lib.CoreTestCase;
 import lib.Platform;
-import lib.ui.ArticlePageObject;
-import lib.ui.SearchPageObject;
 import lib.ui.WelcomePageObject;
-import lib.ui.factories.ArticlePageObjectFactory;
-import lib.ui.factories.SearchPageObjectFactory;
-import org.junit.Test;
 import org.junit.Test;
 
 public class GetStartedTest extends CoreTestCase {

@@ -1,6 +1,7 @@
 package lib.ui;
 
 import io.appium.java_client.AppiumDriver;
+import io.qameta.allure.Step;
 import lib.Platform;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -20,6 +21,7 @@ abstract public class ArticlePageObject extends MainPageObject{
             CLOSE_ARTICLE_BUTTON,
             OPTION_REMOVE_FROM_MY_LIST_BUTTON;
 
+    @Step("Get saved list")
     public static String getSavedListXpathByNameTpl(String nameOfFolder) {
         return NAME_OF_MY_LIST_TPL.replace("{NAME_LIST}", nameOfFolder);
     }
@@ -28,6 +30,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         super(driver);
     }
 
+    @Step("Waiting for title on the article page")
     public WebElement waitForTitleElement(){
         return this.waitForELementPresent(TITLE, "Cannot find article title on page!", 15);
     }
@@ -35,9 +38,10 @@ abstract public class ArticlePageObject extends MainPageObject{
     public WebElement notWaitForTitleElementOnlyClick(){
         return this.waitForELementPresent(TITLE, "Cannot find article title on page!", 15);
     }
-
+    @Step("Get article title")
     public String getArticleTitle() {
         WebElement titleElement = waitForTitleElement();
+        screenshot(this.takeScreenshot("article_title"));
         if(Platform.getInstance().isAndroid()){
             return titleElement.getAttribute("text");
         }else if(Platform.getInstance().isIOS()) {
@@ -47,6 +51,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
 
     }
+    @Step("Swiping to footer on article page")
     public void swipeToFooter() {
         if (Platform.getInstance().isAndroid()) {
             this.swipeUpToFindElement(FOOTER_ELEMENT, "Cannot find the end of article", 40);
@@ -60,7 +65,7 @@ abstract public class ArticlePageObject extends MainPageObject{
             );
         }
     }
-
+    @Step("Removing the article from saved if it has been added")
     public void removeArticleFromSavedIfItAdded(){
         if(this.isElementPresent(OPTION_REMOVE_FROM_MY_LIST_BUTTON)) {
             this.waitForElementAndClick(
@@ -73,7 +78,7 @@ abstract public class ArticlePageObject extends MainPageObject{
             "Cannot find button to add an article to saved list after removind it from this list before");
 
     }
-
+    @Step("Adding the article to my list")
     public void addArticleToNewList(String nameOfFolder) {
 
         this.waitForElementAndClick(
@@ -111,7 +116,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                 5
         );
     }
-
+    @Step("Adding the article to my saved articles")
     public void addArticlesToMySaved() {
         if (Platform.getInstance().isMw()) {
             this.removeArticleFromSavedIfItAdded();
@@ -119,7 +124,7 @@ abstract public class ArticlePageObject extends MainPageObject{
             this.waitForElementAndClick(OPTION_ADD_TO_MY_LIST_BUTTON, "Cannot find option to add article to reading list", 15);
         }
 
-
+     @Step("Closing the button_sync for saved articles in my list")
      public void closeButtonSyncMySavedArticlesMyLists(){
 
          this.waitForElementAndClick(
@@ -127,6 +132,7 @@ abstract public class ArticlePageObject extends MainPageObject{
                  "Cannot find button to close for sync my saved articles" ,
                  5);
      }
+    @Step("Adding the article in present list")
     public void addArticleToPresentList(String nameOfFolder) {
 
         this.waitForElementAndClick(
@@ -147,6 +153,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         );
     }
 
+    @Step("Closing the article")
     public void closeArticle(){
         if(Platform.getInstance().isIOS() || Platform.getInstance().isAndroid()) {
             this.waitForElementAndClick(
@@ -159,7 +166,7 @@ abstract public class ArticlePageObject extends MainPageObject{
         }
 
     }
-
+    @Step("Assert the present element")
     public void assertElementPresent() {
         this.assertElementPresent(
                 TITLE,
